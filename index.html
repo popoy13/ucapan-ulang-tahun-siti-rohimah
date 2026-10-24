@@ -67,25 +67,9 @@
     <!-- Floating Hearts & Petals Container -->
     <div id="animation-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
 
-    <section id="countdown-screen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto px-4 py-10 text-center" aria-labelledby="countdown-title">
-        <div class="glass-card w-full max-w-lg rounded-3xl border-2 border-pink-200 p-7 shadow-2xl sm:p-10">
-            <img src="countdown-photo.jpeg" alt="Foto kenangan keluarga" class="mx-auto mb-4 h-20 w-20 rounded-full border-4 border-white object-cover shadow-lg ring-2 ring-pink-200">
-            <p class="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-deepRose">Sebuah kejutan untukmu</p>
-            <h1 id="countdown-title" class="mb-3 font-serif text-2xl font-bold text-deepRose sm:text-3xl">Halaman spesial segera dibuka</h1>
-            <p class="mb-7 text-sm text-gray-600">Hitung mundur menuju 25 Oktober, pukul 00.00 WIB</p>
-            <div class="grid grid-cols-4 gap-2 sm:gap-4" role="timer" aria-label="Hitung mundur menuju halaman dibuka">
-                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-days" class="block text-2xl font-bold text-deepRose sm:text-4xl">0</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Hari</span></div>
-                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-hours" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Jam</span></div>
-                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-minutes" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Menit</span></div>
-                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-seconds" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Detik</span></div>
-            </div>
-            <p class="mt-7 text-sm font-medium text-gray-600">Simpan tautan ini dan buka kembali saat hitung mundur selesai ❤️</p>
-        </div>
-    </section>
-
-    <div id="birthday-content" style="display: none;">
+    <div id="birthday-content">
     <div class="fixed right-4 top-4 z-50">
-        <button id="music-toggle-btn" type="button" aria-label="Putar musik romantis" aria-pressed="false" class="glass-card flex items-center gap-0 rounded-full border-2 border-pink-300 px-2.5 py-2.5 font-semibold text-deepRose shadow-xl transition-all duration-300 hover:bg-pink-100 sm:gap-3 sm:px-4">
+        <button id="music-toggle-btn" type="button" aria-label="Putar musik romantis" aria-pressed="false" class="glass-card flex items-center gap-0 rounded-full border-2 border-pink-300 px-2.5 py-2 shadow-lg transition-transform duration-200 hover:scale-105">
             <span id="music-icon-wrapper" class="flex h-8 w-8 items-center justify-center rounded-full bg-deepRose text-white shadow-md">
                 <i id="play-icon" class="fa-solid fa-play ml-0.5 text-xs" aria-hidden="true"></i>
             </span>
@@ -126,20 +110,19 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-800 mb-3">Ada Pesan Spesial Untukmu, Sayang</h2>
                     <p class="text-gray-600 mb-6 text-sm sm:text-base">Sentuh tombol di bawah ini untuk membuka ungkapan isi hatiku di hari spesialmu.</p>
-                    <button onclick="revealMessage()" class="bg-gradient-to-r from-deepRose to-pink-500 hover:from-pink-600 hover:to-deepRose text-white font-semibold px-8 py-3.5 rounded-full shadow-lg transition-all transform hover:scale-105 duration-300 cursor-pointer">
+                    <button onclick="revealMessage()" class="bg-gradient-to-r from-deepRose to-pink-500 hover:from-pink-600 hover:to-deepRose text-white font-semibold px-8 py-3.5 rounded-full shadow-lg transition-all duration-300">
                         Buka Pesan Cinta <i class="fa-solid fa-heart ml-2"></i>
                     </button>
                 </div>
 
                 <div id="card-revealed" class="hidden opacity-0 transition-opacity duration-1000">
-                    <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" class="w-24 h-24 object-cover object-center rounded-full mx-auto mb-4 shadow-lg border-4 border-white ring-2 ring-pink-200">
+                    <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" class="w-24 h-24 object-cover object-center rounded-full mx-auto mb-4 shadow-lg border-4 border-white">
                     <h3 class="font-serif text-2xl sm:text-3xl font-bold text-deepRose mb-4">Untuk Istriku Tersayang, Siti Rohimah</h3>
                     <p class="text-gray-700 leading-relaxed text-sm sm:text-base text-left bg-white/70 p-6 rounded-2xl shadow-inner border border-pink-100 mb-6">
-                        Barakallahu fii umrik, istriku tercinta Siti Rohimah. Di hari bertambahnya usiamu ini, aku ingin mengucapkan terima kasih yang tak terhingga karena kamu telah sabar, tulus, dan penuh cinta membersamaiku dalam suka maupun duka. Kamu adalah anugerah terindah yang Allah titipkan dalam hidupku, ibu yang luar biasa bagi keluarga kita, serta belahan jiwa yang selalu menyempurnakan hari-hariku.<br><br>
-                        Semoga Allah senantiasa melimpahkan keberkahan, kesehatan, kebahagiaan, dan kemudahan dalam setiap langkahmu. Doa terbaikku selalu menyertaimu. Aku mencintaimu hari ini, esok, dan selamanya.
+                        Barakallahu fii umrik, istriku tercinta Siti Rohimah. Di hari bertambahnya usiamu ini, aku ingin mengucapkan terima kasih yang tak terhingga karena kamu telah sabar, tulus, dan menjadi rumah bagi hati ini. Setiap hari bersamamu adalah anugerah yang tidak bisa kubandingkan dengan apapun. Semoga Allah senantiasa melimpahkan keberkahan, kesehatan, kebahagiaan, dan kemudahan dalam setiap langkahmu. Doa terbaikku selalu menyertaimu. Aku mencintaimu hari ini, hari esok, dan selamanya.
                     </p>
                     <button onclick="hideMessage()" class="text-deepRose font-semibold text-sm hover:underline flex items-center justify-center mx-auto gap-2 cursor-pointer">
-                        <i class="fa-solid fa-arrow-left"><span>Tutup Pesan</span></i>
+                        <i class="fa-solid fa-arrow-left"></i><span>Tutup Pesan</span>
                     </button>
                 </div>
             </div>
@@ -156,8 +139,8 @@
                 <!-- 1. Foto Siti Rohimah Sendiri -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" role="button" tabindex="0" aria-label="Perbesar foto Siti Rohimah" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Siti+Rohimah';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" role="button" tabindex="0" aria-label="Perbesar foto Siti Rohimah" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Bidadari hatiku yang senantiasa menawan</p>
                         </div>
                     </div>
@@ -167,11 +150,11 @@
                     </div>
                 </div>
 
-                <!-- 2. Foto Bersama Suami (28662.jpg) -->
+                <!-- 2. Foto Bersama Suami -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48%20%281%29.jpeg" alt="Bersama Suami" role="button" tabindex="0" aria-label="Perbesar foto Bersama Suami" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Bersama+Suami';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48%20%281%29.jpeg" alt="Bersama Suami" role="button" tabindex="0" aria-label="Perbesar foto Bersama Suami" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Berjalan bersama dalam ikatan suci</p>
                         </div>
                     </div>
@@ -181,11 +164,11 @@
                     </div>
                 </div>
 
-                <!-- 3. Foto Kolase Momen (28664.jpg) -->
+                <!-- 3. Foto Kolase Momen -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48.jpeg" alt="Kenangan bersama" role="button" tabindex="0" aria-label="Perbesar foto Kenangan bersama" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kenangan+Kita';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48.jpeg" alt="Kenangan bersama" role="button" tabindex="0" aria-label="Perbesar foto Kenangan bersama" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Kumpulan cerita indah kita</p>
                         </div>
                     </div>
@@ -195,11 +178,11 @@
                     </div>
                 </div>
 
-                <!-- 4. Foto Bersama Buah Hati (28667.jpg) -->
+                <!-- 4. Foto Bersama Buah Hati -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.42.jpeg" alt="Keluarga Tercinta" role="button" tabindex="0" aria-label="Perbesar foto Keluarga Tercinta" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Keluarga+Kecil';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.42.jpeg" alt="Keluarga Tercinta" role="button" tabindex="0" aria-label="Perbesar foto Keluarga Tercinta" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Kebahagiaan terindah dalam hidupku</p>
                         </div>
                     </div>
@@ -209,11 +192,11 @@
                     </div>
                 </div>
 
-                <!-- 5. Foto Suasana Cafe/Santai (28660.jpg) -->
+                <!-- 5. Foto Suasana Cafe/Santai -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49%20%281%29.jpeg" alt="Waktu Berkualitas" role="button" tabindex="0" aria-label="Perbesar foto Waktu Berkualitas" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Quality+Time';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49%20%281%29.jpeg" alt="Waktu Berkualitas" role="button" tabindex="0" aria-label="Perbesar foto Waktu Berkualitas" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Menikmati kebersamaan yang hangat</p>
                         </div>
                     </div>
@@ -223,11 +206,11 @@
                     </div>
                 </div>
 
-                <!-- 6. Foto Momen Ultah Kue (28658.jpg) -->
+                <!-- 6. Foto Momen Ultah Kue -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49.jpeg" alt="Ulang Tahun" role="button" tabindex="0" aria-label="Perbesar foto Ulang Tahun" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Ulang+Tahun';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49.jpeg" alt="Ulang Tahun" role="button" tabindex="0" aria-label="Perbesar foto Ulang Tahun" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Merayakan hari istimewamu</p>
                         </div>
                     </div>
@@ -237,11 +220,11 @@
                     </div>
                 </div>
 
-                <!-- 7. Foto Bersama Buah Hati (28654.jpg) -->
+                <!-- 7. Foto Bersama Buah Hati -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53%20%282%29.jpeg" alt="Ibu dan Anak" role="button" tabindex="0" aria-label="Perbesar foto Ibu dan Anak" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Buah+Hati';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53%20%282%29.jpeg" alt="Ibu dan Anak" role="button" tabindex="0" aria-label="Perbesar foto Ibu dan Anak" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Kasih sayang ibu tiada tara</p>
                         </div>
                     </div>
@@ -251,11 +234,11 @@
                     </div>
                 </div>
 
-                <!-- 8. Foto Alam/Outdoor (28653.jpg) -->
+                <!-- 8. Foto Alam/Outdoor -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.50.jpeg" alt="Liburan bersama keluarga" role="button" tabindex="0" aria-label="Perbesar foto Liburan bersama keluarga" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Liburan';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.50.jpeg" alt="Liburan bersama keluarga" role="button" tabindex="0" aria-label="Perbesar foto Liburan bersama keluarga" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Menikmati indahnya alam bersama</p>
                         </div>
                     </div>
@@ -265,11 +248,11 @@
                     </div>
                 </div>
 
-                <!-- 9. Foto Bersama Di Kursi Taman (28652.jpg) -->
+                <!-- 9. Foto Bersama Di Kursi Taman -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53.jpeg" alt="Keluarga berjalan bersama" role="button" tabindex="0" aria-label="Perbesar foto Keluarga berjalan bersama" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kebersamaan';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53.jpeg" alt="Keluarga berjalan bersama" role="button" tabindex="0" aria-label="Perbesar foto Keluarga berjalan bersama" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Sehidup sesurga bersamamu</p>
                         </div>
                     </div>
@@ -282,8 +265,8 @@
                 <!-- 10. Kenangan keluarga di taman -->
                 <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
-                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.52.jpeg" alt="Kenangan keluarga di taman" role="button" tabindex="0" aria-label="Perbesar foto Kenangan keluarga di taman" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kenangan+Keluarga';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.52.jpeg" alt="Kenangan keluarga di taman" role="button" tabindex="0" aria-label="Perbesar foto Kenangan keluarga di taman" loading="lazy" class="gallery-photo h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
                             <p class="text-white text-sm font-medium">Tawa dan cerita indah bersama keluarga</p>
                         </div>
                     </div>
@@ -297,7 +280,7 @@
 
         <dialog id="photo-lightbox" aria-label="Foto kenangan" class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/85">
             <div class="relative flex min-h-screen items-center justify-center p-4">
-                <button id="close-photo-lightbox" type="button" aria-label="Tutup foto" class="absolute right-4 top-4 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white text-3xl text-gray-800 shadow-lg hover:bg-pink-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-pink-400">
+                <button id="close-photo-lightbox" type="button" aria-label="Tutup foto" class="absolute right-4 top-4 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white text-3xl text-gray-700 shadow-xl hover:bg-pink-100">
                     <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
                 <img id="lightbox-image" alt="" class="max-h-[70vh] max-w-[82vw] rounded-xl object-contain shadow-2xl sm:max-h-[75vh] sm:max-w-[80vw]">
@@ -317,35 +300,14 @@
     <script>
         const birthdayContent = document.getElementById('birthday-content');
         const countdownScreen = document.getElementById('countdown-screen');
-        const birthdayOpensAt = new Date('2026-10-25T00:00:00+07:00').getTime();
-        let birthdayUnlocked = false;
-        let countdownInterval;
+        let birthdayUnlocked = true;
 
-        function unlockBirthdayPage() {
-            if (birthdayUnlocked) return;
-            birthdayUnlocked = true;
-            clearInterval(countdownInterval);
-            birthdayContent.style.display = '';
+        if (countdownScreen) {
             countdownScreen.hidden = true;
-            startMusic();
         }
-
-        function updateCountdown() {
-            const remaining = birthdayOpensAt - Date.now();
-            if (remaining <= 0) {
-                unlockBirthdayPage();
-                return;
-            }
-
-            const seconds = Math.floor(remaining / 1000);
-            document.getElementById('countdown-days').textContent = Math.floor(seconds / 86400);
-            document.getElementById('countdown-hours').textContent = String(Math.floor((seconds % 86400) / 3600)).padStart(2, '0');
-            document.getElementById('countdown-minutes').textContent = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-            document.getElementById('countdown-seconds').textContent = String(seconds % 60).padStart(2, '0');
+        if (birthdayContent) {
+            birthdayContent.style.display = '';
         }
-
-        countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
 
         // Floating Elements Generator (Hearts, Flowers, Sparkles)
         const container = document.getElementById('animation-container');
