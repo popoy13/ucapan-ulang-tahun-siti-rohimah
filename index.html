@@ -387,6 +387,7 @@
         let audioContext;
         let musicBus;
         let melodyPlaying = false;
+        let melodyStarting = false;
         let melodyIndex = 0;
         let melodyTimer;
 
@@ -454,7 +455,8 @@
         }
 
         async function startMelody() {
-            if (melodyPlaying) return;
+            if (melodyPlaying || melodyStarting) return;
+            melodyStarting = true;
             try {
                 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
                 if (!AudioContextClass) throw new Error('Web Audio API is not supported.');
@@ -475,16 +477,22 @@
                     echo.connect(feedback);
                     feedback.connect(echo);
                 }
+                await audioContext.resume();
+                if (audioContext.state !== 'running') {
+                    throw new Error('The browser has not allowed audio playback yet.');
+                }
                 melodyPlaying = true;
                 updateMusicPlayer(true);
-                await audioContext.resume();
-                if (!melodyPlaying) return;
                 scheduleMelody();
             } catch (error) {
                 melodyPlaying = false;
                 updateMusicPlayer(false);
-                musicStatus.textContent = 'Melodi tidak dapat diputar di browser ini.';
+                musicStatus.textContent = error.name === 'NotAllowedError' || audioContext?.state !== 'running'
+                    ? 'Browser memblokir putar otomatis. Sentuh halaman untuk memulai musik.'
+                    : 'Melodi tidak dapat diputar di browser ini.';
                 console.error('Melody playback failed:', error);
+            } finally {
+                melodyStarting = false;
             }
         }
 
@@ -510,6 +518,8 @@
         document.body.addEventListener('click', () => {
             if (!melodyPlaying) startMelody();
         }, { once: true });
+
+        startMelody();
     </script>
 </body>
 </html>
