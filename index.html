@@ -73,11 +73,12 @@
                 <i id="play-icon" class="fa-solid fa-play ml-0.5 text-xs" aria-hidden="true"></i>
             </span>
             <span class="hidden text-left sm:block">
-                <span class="block text-xs font-bold leading-tight">Musik Romantis</span>
-                <span class="block text-[10px] font-normal text-gray-500">Instrumental bebas iklan</span>
+                <span class="block text-xs font-bold leading-tight">Kasih Putih</span>
+                <span class="block text-[10px] font-normal text-gray-500">Glenn Fredly</span>
             </span>
         </button>
         <p id="music-status" class="sr-only" aria-live="polite">Musik akan mulai otomatis jika diizinkan browser.</p>
+        <audio id="bg-audio" src="kasih-putih.mp3" autoplay loop preload="metadata"></audio>
     </div>
 
     <!-- Main Container -->
@@ -352,126 +353,40 @@
         const musicIconWrapper = document.getElementById('music-icon-wrapper');
         const playIcon = document.getElementById('play-icon');
         const musicStatus = document.getElementById('music-status');
-        const melodyNotes = [659.25, 783.99, 880, 783.99, 698.46, 659.25, 587.33, 523.25, 587.33, 698.46, 783.99, 880, 1046.5, 880, 783.99, 698.46];
-        const chordProgression = [[130.81, 196, 261.63], [98, 146.83, 196], [110, 164.81, 220], [87.31, 130.81, 174.61]];
-        let audioContext;
-        let musicBus;
-        let melodyPlaying = false;
-        let melodyStarting = false;
-        let melodyIndex = 0;
-        let melodyTimer;
+        const audio = document.getElementById('bg-audio');
 
         function updateMusicPlayer(isPlaying) {
             playIcon.className = isPlaying ? 'fa-solid fa-pause text-xs' : 'fa-solid fa-play ml-0.5 text-xs';
             musicIconWrapper.classList.toggle('animate-spin', isPlaying);
             musicToggleBtn.setAttribute('aria-pressed', String(isPlaying));
-            musicToggleBtn.setAttribute('aria-label', isPlaying ? 'Jeda musik romantis' : 'Putar musik romantis');
-            musicStatus.textContent = isPlaying ? 'Musik romantis sedang diputar.' : 'Musik dijeda.';
+            musicToggleBtn.setAttribute('aria-label', isPlaying ? 'Jeda Kasih Putih' : 'Putar Kasih Putih');
+            musicStatus.textContent = isPlaying ? 'Kasih Putih sedang diputar.' : 'Kasih Putih dijeda.';
         }
 
-        function playSoftNote(frequency, startAt, duration, volume) {
-            const oscillator = audioContext.createOscillator();
-            const warmth = audioContext.createOscillator();
-            const filter = audioContext.createBiquadFilter();
-            const noteGain = audioContext.createGain();
-            const warmthGain = audioContext.createGain();
-
-            oscillator.type = 'triangle';
-            oscillator.frequency.value = frequency;
-            warmth.type = 'sine';
-            warmth.frequency.value = frequency * 2;
-            filter.type = 'lowpass';
-            filter.frequency.value = 2200;
-            warmthGain.gain.value = 0.14;
-            noteGain.gain.setValueAtTime(0.0001, startAt);
-            noteGain.gain.exponentialRampToValueAtTime(volume, startAt + 0.045);
-            noteGain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-            oscillator.connect(filter);
-            warmth.connect(warmthGain);
-            warmthGain.connect(filter);
-            filter.connect(noteGain);
-            noteGain.connect(musicBus);
-            oscillator.start(startAt);
-            warmth.start(startAt);
-            oscillator.stop(startAt + duration + 0.02);
-            warmth.stop(startAt + duration + 0.02);
-            oscillator.addEventListener('ended', () => {
-                oscillator.disconnect();
-                warmth.disconnect();
-                warmthGain.disconnect();
-                filter.disconnect();
-                noteGain.disconnect();
-            }, { once: true });
-        }
-
-        function scheduleMelody() {
-            if (!melodyPlaying) return;
-            const startAt = audioContext.currentTime;
-            playSoftNote(melodyNotes[melodyIndex], startAt, 0.95, 0.035);
-            if (melodyIndex % 4 === 0) {
-                chordProgression[(melodyIndex / 4) % chordProgression.length].forEach(note => {
-                    playSoftNote(note, startAt, 2.5, 0.009);
-                });
-            }
-            melodyIndex = (melodyIndex + 1) % melodyNotes.length;
-            melodyTimer = setTimeout(scheduleMelody, 720);
-        }
-
-        async function startMelody() {
-            if (melodyPlaying || melodyStarting) return;
-            melodyStarting = true;
+        async function startMusic() {
             try {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContextClass) throw new Error('Web Audio API tidak didukung browser ini.');
-                audioContext = audioContext || new AudioContextClass();
-                if (!musicBus) {
-                    musicBus = audioContext.createGain();
-                    const echo = audioContext.createDelay(0.8);
-                    const feedback = audioContext.createGain();
-                    const echoVolume = audioContext.createGain();
-                    musicBus.gain.value = 0.72;
-                    echo.delayTime.value = 0.28;
-                    feedback.gain.value = 0.16;
-                    echoVolume.gain.value = 0.18;
-                    musicBus.connect(audioContext.destination);
-                    musicBus.connect(echo);
-                    echo.connect(echoVolume);
-                    echoVolume.connect(audioContext.destination);
-                    echo.connect(feedback);
-                    feedback.connect(echo);
-                }
-                await audioContext.resume();
-                if (audioContext.state !== 'running') throw new Error('Browser belum mengizinkan audio.');
-                melodyPlaying = true;
-                updateMusicPlayer(true);
-                scheduleMelody();
+                await audio.play();
             } catch (error) {
-                melodyPlaying = false;
                 updateMusicPlayer(false);
-                musicStatus.textContent = 'Browser mungkin memblokir autoplay. Ketuk halaman atau tombol musik untuk memulai.';
-                console.error('Music playback failed:', error);
-            } finally {
-                melodyStarting = false;
-            }
-        }
-
-        async function pauseMelody() {
-            melodyPlaying = false;
-            clearTimeout(melodyTimer);
-            updateMusicPlayer(false);
-            if (audioContext && audioContext.state === 'running') {
-                await audioContext.suspend().catch(error => console.error('Music pause failed:', error));
+                musicStatus.textContent = 'Browser memblokir autoplay. Ketuk halaman atau tombol musik untuk memulai.';
+                console.info('Audio autoplay needs user interaction:', error.name);
             }
         }
 
         musicToggleBtn.addEventListener('click', () => {
-            if (melodyPlaying) pauseMelody();
-            else startMelody();
+            if (audio.paused) startMusic();
+            else audio.pause();
+        });
+        audio.addEventListener('play', () => updateMusicPlayer(true));
+        audio.addEventListener('pause', () => updateMusicPlayer(false));
+        audio.addEventListener('error', () => {
+            musicStatus.textContent = 'File musik tidak dapat dimuat.';
+            console.error('Audio file could not be loaded:', audio.currentSrc);
         });
         document.body.addEventListener('click', () => {
-            if (!melodyPlaying) startMelody();
+            if (audio.paused) startMusic();
         }, { once: true });
-        startMelody();
+        startMusic();
 
         // Surprise Box Interaction
         function revealMessage() {
