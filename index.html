@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Siti Rohimah ❤️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        softPink: '#ffd1dc',
+                        deepRose: '#d81b60',
+                        lightRose: '#fff0f3',
+                        blush: '#ffb3c6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 50%, #ffe5ec 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 7s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.5);
+        }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(216, 27, 96, 0.4), 0 0 40px rgba(255, 182, 193, 0.6);
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans relative selection:bg-pink-300 selection:text-pink-900">
+
+    <!-- Floating Hearts & Petals Container -->
+    <div id="animation-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Persistent Music Player Bar (Top Right) -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="music-toggle-btn" aria-label="Putar musik Kasih Putih" aria-pressed="false" class="glass-card px-4 py-2.5 rounded-full shadow-xl flex items-center gap-3 text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
+            <div id="music-icon-wrapper" class="w-8 h-8 rounded-full bg-deepRose text-white flex items-center justify-center shadow-md">
+                <i id="play-icon" class="fa-solid fa-play text-xs ml-0.5"></i>
+            </div>
+            <div class="text-left">
+                <p class="text-xs font-bold leading-tight">Kasih Putih</p>
+                <p class="text-[10px] text-gray-500 font-normal">Glenn Fredly</p>
+            </div>
+        </button>
+        <p id="music-status" class="sr-only" aria-live="polite">Musik dijeda.</p>
+        <!-- HTML5 Audio Element for Kasih Putih (Glenn Fredly instrumental/audio stream) -->
+        <audio id="bg-audio" loop preload="auto">
+            <source src="https://p.scdn.co/mp3-preview/38102604d7c041f0f4a867bb400d3d5f9ef49877?cid=25762a4d3e814e4b9c1d09e3e3b7b3be" type="audio/mpeg">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Main Container -->
+    <main class="relative z-10 container mx-auto px-4 py-12 max-w-5xl flex flex-col items-center">
+
+        <!-- Header Greeting -->
+        <header class="text-center my-8 w-full">
+            <div class="inline-block mb-3 px-5 py-1.5 rounded-full glass-card text-deepRose text-xs sm:text-sm font-bold tracking-widest uppercase shadow-sm">
+                ✨ Selamat Hari Lahir Istri Tercinta ✨
+            </div>
+            <h1 class="font-script text-6xl sm:text-8xl text-deepRose font-bold glow-text mt-2 mb-4 leading-tight">
+                Siti Rohimah
+            </h1>
+            <p class="font-serif italic text-lg sm:text-2xl text-gray-700 max-w-2xl mx-auto px-4">
+                "Terima kasih telah menjadi pelita terindah dalam setiap langkah hidupku, bidadari surgaku."
+            </p>
+        </header>
+
+        <!-- Interactive Surprise Box / Opening Card -->
+        <section id="surprise-section" class="w-full max-w-2xl my-8">
+            <div class="glass-card p-8 rounded-3xl shadow-xl text-center relative overflow-hidden group border-2 border-pink-200">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-300 rounded-full filter blur-2xl opacity-40"></div>
+                <div class="absolute -left-10 -top-10 w-40 h-40 bg-rose-200 rounded-full filter blur-2xl opacity-40"></div>
+                
+                <div id="card-initial">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-deepRose to-blush rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg text-white text-3xl animate-bounce">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-800 mb-3">Ada Pesan Spesial Untukmu, Sayang</h2>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">Sentuh tombol di bawah ini untuk membuka ungkapan isi hatiku di hari spesialmu.</p>
+                    <button onclick="revealMessage()" class="bg-gradient-to-r from-deepRose to-pink-500 hover:from-pink-600 hover:to-deepRose text-white font-semibold px-8 py-3.5 rounded-full shadow-lg transition-all transform hover:scale-105 duration-300 cursor-pointer">
+                        Buka Pesan Cinta <i class="fa-solid fa-heart ml-2"></i>
+                    </button>
+                </div>
+
+                <div id="card-revealed" class="hidden opacity-0 transition-opacity duration-1000">
+                    <div class="w-16 h-16 bg-pink-100 text-deepRose rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-envelope-open-heart"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-deepRose mb-4">Untuk Istriku Tersayang, Siti Rohimah</h3>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base text-left bg-white/70 p-6 rounded-2xl shadow-inner border border-pink-100 mb-6">
+                        Barakallahu fii umrik, istriku tercinta Siti Rohimah. Di hari bertambahnya usiamu ini, aku ingin mengucapkan terima kasih yang tak terhingga karena kamu telah sabar, tulus, dan penuh cinta membersamaiku dalam suka maupun duka. Kamu adalah anugerah terindah yang Allah titipkan dalam hidupku, ibu yang luar biasa bagi keluarga kita, serta belahan jiwa yang selalu menyempurnakan hari-hariku.<br><br>
+                        Semoga Allah senantiasa melimpahkan keberkahan, kesehatan, kebahagiaan, dan kemudahan dalam setiap langkahmu. Doa terbaikku selalu menyertaimu. Aku mencintaimu hari ini, esok, dan selamanya.
+                    </p>
+                    <button onclick="hideMessage()" class="text-deepRose font-semibold text-sm hover:underline flex items-center justify-center mx-auto gap-2 cursor-pointer">
+                        <i class="fa-solid fa-arrow-left"><span>Tutup Pesan</span></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section Using Uploaded Images -->
+        <section class="w-full my-12">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deepRose">Galeri Kenangan Kita</h2>
+                <p class="text-gray-600 text-sm sm:text-base mt-2">Momen terindah yang terekam penuh cinta bersama Siti Rohimah tercinta.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. Foto Siti Rohimah Sendiri -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Siti+Rohimah';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Bidadari hatiku yang senantiasa menawan</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Senyum Manis Siti Rohimah</h4>
+                        <p class="text-xs text-gray-500 mt-1">Keindahan yang selalu menenangkan jiwaku</p>
+                    </div>
+                </div>
+
+                <!-- 2. Foto Bersama Suami (28662.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48%20%281%29.jpeg" alt="Bersama Suami" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Bersama+Suami';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Berjalan bersama dalam ikatan suci</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Satu Hati Selamanya</h4>
+                        <p class="text-xs text-gray-500 mt-1">Bergandengan tangan menghadapi dunia</p>
+                    </div>
+                </div>
+
+                <!-- 3. Foto Kolase Momen (28664.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48.jpeg" alt="Kenangan bersama" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kenangan+Kita';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Kumpulan cerita indah kita</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Merajut Kisah Cinta</h4>
+                        <p class="text-xs text-gray-500 mt-1">Setiap detik berharga bersamamu</p>
+                    </div>
+                </div>
+
+                <!-- 4. Foto Bersama Buah Hati (28667.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.42.jpeg" alt="Keluarga Tercinta" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Keluarga+Kecil';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Kebahagiaan terindah dalam hidupku</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Keluarga Bahagia</h4>
+                        <p class="text-xs text-gray-500 mt-1">Pilar kekuatan dan kehangatan rumah kita</p>
+                    </div>
+                </div>
+
+                <!-- 5. Foto Suasana Cafe/Santai (28660.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49%20%281%29.jpeg" alt="Waktu Berkualitas" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Quality+Time';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Menikmati kebersamaan yang hangat</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Kehangatan Bersama</h4>
+                        <p class="text-xs text-gray-500 mt-1">Selalu menyenangkan berada di sisimu</p>
+                    </div>
+                </div>
+
+                <!-- 6. Foto Momen Ultah Kue (28658.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49.jpeg" alt="Ulang Tahun" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Ulang+Tahun';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Merayakan hari istimewamu</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Hari Istimewa</h4>
+                        <p class="text-xs text-gray-500 mt-1">Semoga panjang umur dan berkah selalu</p>
+                    </div>
+                </div>
+
+                <!-- 7. Foto Bersama Buah Hati (28654.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53%20%282%29.jpeg" alt="Ibu dan Anak" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Buah+Hati';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Kasih sayang ibu tiada tara</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Cinta Buah Hati</h4>
+                        <p class="text-xs text-gray-500 mt-1">Kebahagiaan keluarga tercinta</p>
+                    </div>
+                </div>
+
+                <!-- 8. Foto Alam/Outdoor (28653.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.50.jpeg" alt="Liburan bersama keluarga" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Liburan';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Menikmati indahnya alam bersama</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Petualangan Cinta</h4>
+                        <p class="text-xs text-gray-500 mt-1">Menjelajah dunia bersamamu</p>
+                    </div>
+                </div>
+
+                <!-- 9. Foto Bersama Di Kursi Taman (28652.jpg) -->
+                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-72 overflow-hidden relative bg-pink-50">
+                        <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53.jpeg" alt="Keluarga berjalan bersama" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kebersamaan';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">Sehidup sesurga bersamamu</p>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-serif font-bold text-lg text-gray-800">Cinta Abadi</h4>
+                        <p class="text-xs text-gray-500 mt-1">Menua bersama dalam kasih sayang</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Note -->
+        <footer class="w-full text-center my-12 py-6 glass-card rounded-3xl border border-pink-200">
+            <p class="font-script text-3xl sm:text-4xl text-deepRose mb-2">Happy Birthday, Siti Rohimah ❤️</p>
+            <p class="text-xs sm:text-sm text-gray-600">Dibuat dengan segenap cinta dan ketulusan hati untuk istri tercinta.</p>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript for Animations and Music Control -->
+    <script>
+        // Floating Elements Generator (Hearts, Flowers, Sparkles)
+        const container = document.getElementById('animation-container');
+        const symbols = ['❤️', '🌸', '💖', '✨', '🌹', '💕'];
+
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.className = 'floating-element';
+            el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 16 + 12) + 'px';
+            el.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            container.appendChild(el);
+
+            setTimeout(() => {
+                el.remove();
+            }, 8000);
+        }
+
+        setInterval(createFloatingElement, 400);
+
+        // Surprise Box Interaction
+        function revealMessage() {
+            const initial = document.getElementById('card-initial');
+            const revealed = document.getElementById('card-revealed');
+            
+            initial.style.display = 'none';
+            revealed.classList.remove('hidden');
+            setTimeout(() => {
+                revealed.classList.remove('opacity-0');
+            }, 50);
+        }
+
+        function hideMessage() {
+            const initial = document.getElementById('card-initial');
+            const revealed = document.getElementById('card-revealed');
+            
+            revealed.classList.add('opacity-0');
+            setTimeout(() => {
+                revealed.classList.add('hidden');
+                initial.style.display = 'block';
+            }, 500);
+        }
+
+        // Music Player Controls
+        const audio = document.getElementById('bg-audio');
+        const musicToggleBtn = document.getElementById('music-toggle-btn');
+        const musicIconWrapper = document.getElementById('music-icon-wrapper');
+        const playIcon = document.getElementById('play-icon');
+        const musicStatus = document.getElementById('music-status');
+
+        function updateMusicPlayer(isPlaying) {
+            playIcon.className = isPlaying
+                ? "fa-solid fa-pause text-xs"
+                : "fa-solid fa-play text-xs ml-0.5";
+            musicIconWrapper.classList.toggle('animate-spin', isPlaying);
+            musicToggleBtn.style.backgroundColor = isPlaying ? '#ffd1dc' : 'rgba(255, 255, 255, 0.9)';
+            musicToggleBtn.setAttribute('aria-pressed', String(isPlaying));
+            musicStatus.textContent = isPlaying ? 'Musik sedang diputar.' : 'Musik dijeda.';
+        }
+
+        musicToggleBtn.addEventListener('click', async () => {
+            if (!audio.paused) {
+                audio.pause();
+                return;
+            }
+
+            try {
+                await audio.play();
+            } catch (error) {
+                updateMusicPlayer(false);
+                musicStatus.textContent = 'Musik tidak dapat diputar. Periksa koneksi internet lalu coba lagi.';
+                console.error('Audio playback failed:', error);
+            }
+        });
+
+        audio.addEventListener('play', () => updateMusicPlayer(true));
+        audio.addEventListener('pause', () => updateMusicPlayer(false));
+    </script>
+</body>
+</html>
