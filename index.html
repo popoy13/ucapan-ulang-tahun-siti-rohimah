@@ -67,6 +67,23 @@
     <!-- Floating Hearts & Petals Container -->
     <div id="animation-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
 
+    <section id="countdown-screen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto px-4 py-10 text-center" aria-labelledby="countdown-title">
+        <div class="glass-card w-full max-w-lg rounded-3xl border-2 border-pink-200 p-7 shadow-2xl sm:p-10">
+            <div class="mb-4 text-4xl" aria-hidden="true">🎁</div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-deepRose">Sebuah kejutan untukmu</p>
+            <h1 id="countdown-title" class="mb-3 font-serif text-2xl font-bold text-deepRose sm:text-3xl">Halaman spesial segera dibuka</h1>
+            <p class="mb-7 text-sm text-gray-600">Hitung mundur menuju 25 Oktober, pukul 00.00 WIB</p>
+            <div class="grid grid-cols-4 gap-2 sm:gap-4" role="timer" aria-label="Hitung mundur menuju halaman dibuka">
+                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-days" class="block text-2xl font-bold text-deepRose sm:text-4xl">0</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Hari</span></div>
+                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-hours" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Jam</span></div>
+                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-minutes" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Menit</span></div>
+                <div class="rounded-2xl bg-white/80 p-3 shadow-sm"><span id="countdown-seconds" class="block text-2xl font-bold text-deepRose sm:text-4xl">00</span><span class="text-[10px] font-medium uppercase tracking-wider text-gray-500 sm:text-xs">Detik</span></div>
+            </div>
+            <p class="mt-7 text-sm font-medium text-gray-600">Simpan tautan ini dan buka kembali saat hitung mundur selesai ❤️</p>
+        </div>
+    </section>
+
+    <div id="birthday-content" style="display: none;">
     <div class="fixed right-4 top-4 z-50">
         <button id="music-toggle-btn" type="button" aria-label="Putar musik romantis" aria-pressed="false" class="glass-card flex items-center gap-0 rounded-full border-2 border-pink-300 px-2.5 py-2.5 font-semibold text-deepRose shadow-xl transition-all duration-300 hover:bg-pink-100 sm:gap-3 sm:px-4">
             <span id="music-icon-wrapper" class="flex h-8 w-8 items-center justify-center rounded-full bg-deepRose text-white shadow-md">
@@ -78,7 +95,7 @@
             </span>
         </button>
         <p id="music-status" class="sr-only" aria-live="polite">Musik akan mulai otomatis jika diizinkan browser.</p>
-        <audio id="bg-audio" src="kasih-putih.mp3" autoplay loop preload="metadata"></audio>
+        <audio id="bg-audio" src="kasih-putih.mp3" loop preload="none"></audio>
     </div>
 
     <!-- Main Container -->
@@ -294,9 +311,42 @@
         </footer>
 
     </main>
+    </div>
 
     <!-- JavaScript for Animations and Music Control -->
     <script>
+        const birthdayContent = document.getElementById('birthday-content');
+        const countdownScreen = document.getElementById('countdown-screen');
+        const birthdayOpensAt = new Date('2026-10-25T00:00:00+07:00').getTime();
+        let birthdayUnlocked = false;
+        let countdownInterval;
+
+        function unlockBirthdayPage() {
+            if (birthdayUnlocked) return;
+            birthdayUnlocked = true;
+            clearInterval(countdownInterval);
+            birthdayContent.style.display = '';
+            countdownScreen.hidden = true;
+            startMusic();
+        }
+
+        function updateCountdown() {
+            const remaining = birthdayOpensAt - Date.now();
+            if (remaining <= 0) {
+                unlockBirthdayPage();
+                return;
+            }
+
+            const seconds = Math.floor(remaining / 1000);
+            document.getElementById('countdown-days').textContent = Math.floor(seconds / 86400);
+            document.getElementById('countdown-hours').textContent = String(Math.floor((seconds % 86400) / 3600)).padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = String(seconds % 60).padStart(2, '0');
+        }
+
+        countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
         // Floating Elements Generator (Hearts, Flowers, Sparkles)
         const container = document.getElementById('animation-container');
         const symbols = ['❤️', '🌸', '💖', '✨', '🌹', '💕'];
@@ -383,10 +433,9 @@
             musicStatus.textContent = 'File musik tidak dapat dimuat.';
             console.error('Audio file could not be loaded:', audio.currentSrc);
         });
-        document.body.addEventListener('click', () => {
-            if (audio.paused) startMusic();
-        }, { once: true });
-        startMusic();
+        document.body.addEventListener('click', event => {
+            if (birthdayUnlocked && audio.paused && !musicToggleBtn.contains(event.target)) startMusic();
+        });
 
         // Surprise Box Interaction
         function revealMessage() {
