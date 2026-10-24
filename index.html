@@ -64,21 +64,16 @@
 
     <!-- Persistent Music Player Bar (Top Right) -->
     <div class="fixed top-4 right-4 z-50">
-        <button id="music-toggle-btn" aria-label="Putar musik Kasih Putih" aria-pressed="false" class="glass-card px-4 py-2.5 rounded-full shadow-xl flex items-center gap-3 text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
+        <button id="music-toggle-btn" aria-label="Putar melodi romantis" aria-pressed="false" class="glass-card px-4 py-2.5 rounded-full shadow-xl flex items-center gap-3 text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
             <div id="music-icon-wrapper" class="w-8 h-8 rounded-full bg-deepRose text-white flex items-center justify-center shadow-md">
                 <i id="play-icon" class="fa-solid fa-play text-xs ml-0.5"></i>
             </div>
             <div class="text-left">
-                <p class="text-xs font-bold leading-tight">Kasih Putih</p>
-                <p class="text-[10px] text-gray-500 font-normal">Glenn Fredly</p>
+                <p class="text-xs font-bold leading-tight">Melodi Romantis</p>
+                <p class="text-[10px] text-gray-500 font-normal">Instrumental orisinal</p>
             </div>
         </button>
-        <p id="music-status" class="sr-only" aria-live="polite">Musik dijeda.</p>
-        <!-- HTML5 Audio Element for Kasih Putih (Glenn Fredly instrumental/audio stream) -->
-        <audio id="bg-audio" loop preload="auto">
-            <source src="https://p.scdn.co/mp3-preview/38102604d7c041f0f4a867bb400d3d5f9ef49877?cid=25762a4d3e814e4b9c1d09e3e3b7b3be" type="audio/mpeg">
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+        <p id="music-status" class="sr-only" aria-live="polite">Melodi akan mulai setelah sentuhan pertama.</p>
     </div>
 
     <!-- Main Container -->
@@ -317,12 +312,16 @@
             }, 500);
         }
 
-        // Music Player Controls
-        const audio = document.getElementById('bg-audio');
+        // Original synthesized melody; browsers require a user gesture before audio can play.
         const musicToggleBtn = document.getElementById('music-toggle-btn');
         const musicIconWrapper = document.getElementById('music-icon-wrapper');
         const playIcon = document.getElementById('play-icon');
         const musicStatus = document.getElementById('music-status');
+        const melodyNotes = [392, 440, 523.25, 587.33, 523.25, 440, 392, 329.63, 349.23, 392, 440, 523.25, 440, 392, 329.63, 293.66];
+        let audioContext;
+        let melodyPlaying = false;
+        let melodyIndex = 0;
+        let melodyTimer;
 
         function updateMusicPlayer(isPlaying) {
             playIcon.className = isPlaying
@@ -331,26 +330,78 @@
             musicIconWrapper.classList.toggle('animate-spin', isPlaying);
             musicToggleBtn.style.backgroundColor = isPlaying ? '#ffd1dc' : 'rgba(255, 255, 255, 0.9)';
             musicToggleBtn.setAttribute('aria-pressed', String(isPlaying));
-            musicStatus.textContent = isPlaying ? 'Musik sedang diputar.' : 'Musik dijeda.';
+            musicToggleBtn.setAttribute('aria-label', isPlaying ? 'Jeda melodi romantis' : 'Putar melodi romantis');
+            musicStatus.textContent = isPlaying ? 'Melodi romantis sedang diputar.' : 'Melodi romantis dijeda.';
         }
 
-        musicToggleBtn.addEventListener('click', async () => {
-            if (!audio.paused) {
-                audio.pause();
-                return;
-            }
+        function playMelodyNote(frequency) {
+            const startAt = audioContext.currentTime;
+            const oscillator = audioContext.createOscillator();
+            const noteGain = audioContext.createGain();
 
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            noteGain.gain.setValueAtTime(0.0001, startAt);
+            noteGain.gain.exponentialRampToValueAtTime(0.045, startAt + 0.035);
+            noteGain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.48);
+            oscillator.connect(noteGain);
+            noteGain.connect(audioContext.destination);
+            oscillator.start(startAt);
+            oscillator.stop(startAt + 0.5);
+            oscillator.addEventListener('ended', () => {
+                oscillator.disconnect();
+                noteGain.disconnect();
+            }, { once: true });
+        }
+
+        function scheduleMelody() {
+            if (!melodyPlaying) return;
+            playMelodyNote(melodyNotes[melodyIndex]);
+            melodyIndex = (melodyIndex + 1) % melodyNotes.length;
+            melodyTimer = setTimeout(scheduleMelody, 560);
+        }
+
+        async function startMelody() {
+            if (melodyPlaying) return;
             try {
-                await audio.play();
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContextClass) throw new Error('Web Audio API is not supported.');
+                audioContext = audioContext || new AudioContextClass();
+                melodyPlaying = true;
+                updateMusicPlayer(true);
+                await audioContext.resume();
+                if (!melodyPlaying) return;
+                scheduleMelody();
             } catch (error) {
+                melodyPlaying = false;
                 updateMusicPlayer(false);
-                musicStatus.textContent = 'Musik tidak dapat diputar. Periksa koneksi internet lalu coba lagi.';
-                console.error('Audio playback failed:', error);
+                musicStatus.textContent = 'Melodi tidak dapat diputar di browser ini.';
+                console.error('Melody playback failed:', error);
+            }
+        }
+
+        async function pauseMelody() {
+            melodyPlaying = false;
+            clearTimeout(melodyTimer);
+            updateMusicPlayer(false);
+            if (audioContext && audioContext.state === 'running') {
+                await audioContext.suspend().catch(error => {
+                    console.error('Melody pause failed:', error);
+                });
+            }
+        }
+
+        musicToggleBtn.addEventListener('click', () => {
+            if (melodyPlaying) {
+                pauseMelody();
+            } else {
+                startMelody();
             }
         });
 
-        audio.addEventListener('play', () => updateMusicPlayer(true));
-        audio.addEventListener('pause', () => updateMusicPlayer(false));
+        document.body.addEventListener('click', () => {
+            if (!melodyPlaying) startMelody();
+        }, { once: true });
     </script>
 </body>
 </html>
