@@ -67,20 +67,6 @@
     <!-- Floating Hearts & Petals Container -->
     <div id="animation-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
 
-    <!-- Persistent Music Player Bar (Top Right) -->
-    <div class="fixed top-4 right-4 z-50">
-        <button id="music-toggle-btn" aria-label="Putar melodi romantis" aria-pressed="false" class="glass-card px-2.5 py-2.5 sm:px-4 flex items-center gap-0 sm:gap-3 rounded-full shadow-xl text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
-            <div id="music-icon-wrapper" class="w-8 h-8 rounded-full bg-deepRose text-white flex items-center justify-center shadow-md">
-                <i id="play-icon" class="fa-solid fa-play text-xs ml-0.5"></i>
-            </div>
-            <div class="hidden sm:block text-left">
-                <p class="text-xs font-bold leading-tight">Melodi Romantis</p>
-                <p class="text-[10px] text-gray-500 font-normal">Instrumental orisinal</p>
-            </div>
-        </button>
-        <p id="music-status" class="sr-only" aria-live="polite">Melodi akan mulai setelah sentuhan pertama.</p>
-    </div>
-
     <!-- Main Container -->
     <main class="relative z-10 container mx-auto px-4 py-12 max-w-5xl flex flex-col items-center">
 
@@ -95,6 +81,19 @@
             <p class="font-serif italic text-lg sm:text-2xl text-gray-700 max-w-2xl mx-auto px-4">
                 "Terima kasih telah menjadi pelita terindah dalam setiap langkah hidupku, bidadari surgaku."
             </p>
+            <div class="glass-card mx-auto mt-7 w-full max-w-md rounded-2xl p-3 shadow-lg">
+                <p class="mb-2 text-sm font-semibold text-deepRose">Musik pilihanmu</p>
+                <div class="relative aspect-video overflow-hidden rounded-xl bg-black">
+                    <iframe
+                        class="absolute inset-0 h-full w-full"
+                        src="https://www.youtube-nocookie.com/embed/CVEPAN2eLYg?autoplay=1&amp;playsinline=1&amp;rel=0"
+                        title="Musik pilihan dari YouTube"
+                        allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </header>
 
         <!-- Interactive Surprise Box / Opening Card -->
@@ -372,154 +371,6 @@
             }, 500);
         }
 
-        // Original synthesized melody; browsers require a user gesture before audio can play.
-        const musicToggleBtn = document.getElementById('music-toggle-btn');
-        const musicIconWrapper = document.getElementById('music-icon-wrapper');
-        const playIcon = document.getElementById('play-icon');
-        const musicStatus = document.getElementById('music-status');
-        const melodyNotes = [659.25, 783.99, 880, 783.99, 698.46, 659.25, 587.33, 523.25, 587.33, 698.46, 783.99, 880, 1046.5, 880, 783.99, 698.46];
-        const chordProgression = [
-            [130.81, 196, 261.63],
-            [98, 146.83, 196],
-            [110, 164.81, 220],
-            [87.31, 130.81, 174.61]
-        ];
-        let audioContext;
-        let musicBus;
-        let melodyPlaying = false;
-        let melodyStarting = false;
-        let melodyIndex = 0;
-        let melodyTimer;
-
-        function updateMusicPlayer(isPlaying) {
-            playIcon.className = isPlaying
-                ? "fa-solid fa-pause text-xs"
-                : "fa-solid fa-play text-xs ml-0.5";
-            musicIconWrapper.classList.toggle('animate-spin', isPlaying);
-            musicToggleBtn.style.backgroundColor = isPlaying ? '#ffd1dc' : 'rgba(255, 255, 255, 0.9)';
-            musicToggleBtn.setAttribute('aria-pressed', String(isPlaying));
-            musicToggleBtn.setAttribute('aria-label', isPlaying ? 'Jeda melodi romantis' : 'Putar melodi romantis');
-            musicStatus.textContent = isPlaying ? 'Melodi romantis sedang diputar.' : 'Melodi romantis dijeda.';
-        }
-
-        function playSoftNote(frequency, startAt, duration, volume) {
-            const oscillator = audioContext.createOscillator();
-            const warmth = audioContext.createOscillator();
-            const filter = audioContext.createBiquadFilter();
-            const noteGain = audioContext.createGain();
-            const warmthGain = audioContext.createGain();
-
-            oscillator.type = 'triangle';
-            oscillator.frequency.value = frequency;
-            warmth.type = 'sine';
-            warmth.frequency.value = frequency * 2;
-            filter.type = 'lowpass';
-            filter.frequency.value = 2200;
-            warmthGain.gain.value = 0.14;
-            noteGain.gain.setValueAtTime(0.0001, startAt);
-            noteGain.gain.exponentialRampToValueAtTime(volume, startAt + 0.045);
-            noteGain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-            oscillator.connect(filter);
-            warmth.connect(warmthGain);
-            warmthGain.connect(filter);
-            filter.connect(noteGain);
-            noteGain.connect(musicBus);
-            oscillator.start(startAt);
-            warmth.start(startAt);
-            oscillator.stop(startAt + duration + 0.02);
-            warmth.stop(startAt + duration + 0.02);
-            oscillator.addEventListener('ended', () => {
-                oscillator.disconnect();
-                warmth.disconnect();
-                warmthGain.disconnect();
-                filter.disconnect();
-                noteGain.disconnect();
-            }, { once: true });
-        }
-
-        function playMelodyNote(frequency) {
-            const startAt = audioContext.currentTime;
-            playSoftNote(frequency, startAt, 0.95, 0.035);
-            if (melodyIndex % 4 === 0) {
-                chordProgression[(melodyIndex / 4) % chordProgression.length].forEach(note => {
-                    playSoftNote(note, startAt, 2.5, 0.009);
-                });
-            }
-        }
-
-        function scheduleMelody() {
-            if (!melodyPlaying) return;
-            playMelodyNote(melodyNotes[melodyIndex]);
-            melodyIndex = (melodyIndex + 1) % melodyNotes.length;
-            melodyTimer = setTimeout(scheduleMelody, 720);
-        }
-
-        async function startMelody() {
-            if (melodyPlaying || melodyStarting) return;
-            melodyStarting = true;
-            try {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContextClass) throw new Error('Web Audio API is not supported.');
-                audioContext = audioContext || new AudioContextClass();
-                if (!musicBus) {
-                    musicBus = audioContext.createGain();
-                    const echo = audioContext.createDelay(0.8);
-                    const feedback = audioContext.createGain();
-                    const echoVolume = audioContext.createGain();
-                    musicBus.gain.value = 0.72;
-                    echo.delayTime.value = 0.28;
-                    feedback.gain.value = 0.16;
-                    echoVolume.gain.value = 0.18;
-                    musicBus.connect(audioContext.destination);
-                    musicBus.connect(echo);
-                    echo.connect(echoVolume);
-                    echoVolume.connect(audioContext.destination);
-                    echo.connect(feedback);
-                    feedback.connect(echo);
-                }
-                await audioContext.resume();
-                if (audioContext.state !== 'running') {
-                    throw new Error('The browser has not allowed audio playback yet.');
-                }
-                melodyPlaying = true;
-                updateMusicPlayer(true);
-                scheduleMelody();
-            } catch (error) {
-                melodyPlaying = false;
-                updateMusicPlayer(false);
-                musicStatus.textContent = error.name === 'NotAllowedError' || audioContext?.state !== 'running'
-                    ? 'Browser memblokir putar otomatis. Sentuh halaman untuk memulai musik.'
-                    : 'Melodi tidak dapat diputar di browser ini.';
-                console.error('Melody playback failed:', error);
-            } finally {
-                melodyStarting = false;
-            }
-        }
-
-        async function pauseMelody() {
-            melodyPlaying = false;
-            clearTimeout(melodyTimer);
-            updateMusicPlayer(false);
-            if (audioContext && audioContext.state === 'running') {
-                await audioContext.suspend().catch(error => {
-                    console.error('Melody pause failed:', error);
-                });
-            }
-        }
-
-        musicToggleBtn.addEventListener('click', () => {
-            if (melodyPlaying) {
-                pauseMelody();
-            } else {
-                startMelody();
-            }
-        });
-
-        document.body.addEventListener('click', () => {
-            if (!melodyPlaying) startMelody();
-        }, { once: true });
-
-        startMelody();
     </script>
 </body>
 </html>
