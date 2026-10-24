@@ -363,8 +363,15 @@
         const musicIconWrapper = document.getElementById('music-icon-wrapper');
         const playIcon = document.getElementById('play-icon');
         const musicStatus = document.getElementById('music-status');
-        const melodyNotes = [392, 440, 523.25, 587.33, 523.25, 440, 392, 329.63, 349.23, 392, 440, 523.25, 440, 392, 329.63, 293.66];
+        const melodyNotes = [659.25, 783.99, 880, 783.99, 698.46, 659.25, 587.33, 523.25, 587.33, 698.46, 783.99, 880, 1046.5, 880, 783.99, 698.46];
+        const chordProgression = [
+            [130.81, 196, 261.63],
+            [98, 146.83, 196],
+            [110, 164.81, 220],
+            [87.31, 130.81, 174.61]
+        ];
         let audioContext;
+        let musicBus;
         let melodyPlaying = false;
         let melodyIndex = 0;
         let melodyTimer;
@@ -380,31 +387,56 @@
             musicStatus.textContent = isPlaying ? 'Melodi romantis sedang diputar.' : 'Melodi romantis dijeda.';
         }
 
-        function playMelodyNote(frequency) {
-            const startAt = audioContext.currentTime;
+        function playSoftNote(frequency, startAt, duration, volume) {
             const oscillator = audioContext.createOscillator();
+            const warmth = audioContext.createOscillator();
+            const filter = audioContext.createBiquadFilter();
             const noteGain = audioContext.createGain();
+            const warmthGain = audioContext.createGain();
 
-            oscillator.type = 'sine';
+            oscillator.type = 'triangle';
             oscillator.frequency.value = frequency;
+            warmth.type = 'sine';
+            warmth.frequency.value = frequency * 2;
+            filter.type = 'lowpass';
+            filter.frequency.value = 2200;
+            warmthGain.gain.value = 0.14;
             noteGain.gain.setValueAtTime(0.0001, startAt);
-            noteGain.gain.exponentialRampToValueAtTime(0.045, startAt + 0.035);
-            noteGain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.48);
-            oscillator.connect(noteGain);
-            noteGain.connect(audioContext.destination);
+            noteGain.gain.exponentialRampToValueAtTime(volume, startAt + 0.045);
+            noteGain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
+            oscillator.connect(filter);
+            warmth.connect(warmthGain);
+            warmthGain.connect(filter);
+            filter.connect(noteGain);
+            noteGain.connect(musicBus);
             oscillator.start(startAt);
-            oscillator.stop(startAt + 0.5);
+            warmth.start(startAt);
+            oscillator.stop(startAt + duration + 0.02);
+            warmth.stop(startAt + duration + 0.02);
             oscillator.addEventListener('ended', () => {
                 oscillator.disconnect();
+                warmth.disconnect();
+                warmthGain.disconnect();
+                filter.disconnect();
                 noteGain.disconnect();
             }, { once: true });
+        }
+
+        function playMelodyNote(frequency) {
+            const startAt = audioContext.currentTime;
+            playSoftNote(frequency, startAt, 0.95, 0.035);
+            if (melodyIndex % 4 === 0) {
+                chordProgression[(melodyIndex / 4) % chordProgression.length].forEach(note => {
+                    playSoftNote(note, startAt, 2.5, 0.009);
+                });
+            }
         }
 
         function scheduleMelody() {
             if (!melodyPlaying) return;
             playMelodyNote(melodyNotes[melodyIndex]);
             melodyIndex = (melodyIndex + 1) % melodyNotes.length;
-            melodyTimer = setTimeout(scheduleMelody, 560);
+            melodyTimer = setTimeout(scheduleMelody, 720);
         }
 
         async function startMelody() {
@@ -413,6 +445,22 @@
                 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
                 if (!AudioContextClass) throw new Error('Web Audio API is not supported.');
                 audioContext = audioContext || new AudioContextClass();
+                if (!musicBus) {
+                    musicBus = audioContext.createGain();
+                    const echo = audioContext.createDelay(0.8);
+                    const feedback = audioContext.createGain();
+                    const echoVolume = audioContext.createGain();
+                    musicBus.gain.value = 0.72;
+                    echo.delayTime.value = 0.28;
+                    feedback.gain.value = 0.16;
+                    echoVolume.gain.value = 0.18;
+                    musicBus.connect(audioContext.destination);
+                    musicBus.connect(echo);
+                    echo.connect(echoVolume);
+                    echoVolume.connect(audioContext.destination);
+                    echo.connect(feedback);
+                    feedback.connect(echo);
+                }
                 melodyPlaying = true;
                 updateMusicPlayer(true);
                 await audioContext.resume();
