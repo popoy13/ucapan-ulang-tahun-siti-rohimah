@@ -55,6 +55,11 @@
         .glow-text {
             text-shadow: 0 0 20px rgba(216, 27, 96, 0.4), 0 0 40px rgba(255, 182, 193, 0.6);
         }
+        @media (max-width: 639px) {
+            header h1 {
+                font-size: clamp(3rem, 12vw, 3.75rem);
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800 font-sans relative selection:bg-pink-300 selection:text-pink-900">
@@ -64,11 +69,11 @@
 
     <!-- Persistent Music Player Bar (Top Right) -->
     <div class="fixed top-4 right-4 z-50">
-        <button id="music-toggle-btn" aria-label="Putar melodi romantis" aria-pressed="false" class="glass-card px-4 py-2.5 rounded-full shadow-xl flex items-center gap-3 text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
+        <button id="music-toggle-btn" aria-label="Putar melodi romantis" aria-pressed="false" class="glass-card px-2.5 py-2.5 sm:px-4 flex items-center gap-0 sm:gap-3 rounded-full shadow-xl text-deepRose font-semibold hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300 cursor-pointer">
             <div id="music-icon-wrapper" class="w-8 h-8 rounded-full bg-deepRose text-white flex items-center justify-center shadow-md">
                 <i id="play-icon" class="fa-solid fa-play text-xs ml-0.5"></i>
             </div>
-            <div class="text-left">
+            <div class="hidden sm:block text-left">
                 <p class="text-xs font-bold leading-tight">Melodi Romantis</p>
                 <p class="text-[10px] text-gray-500 font-normal">Instrumental orisinal</p>
             </div>
@@ -130,130 +135,130 @@
                 <p class="text-gray-600 text-sm sm:text-base mt-2">Momen terindah yang terekam penuh cinta bersama Siti Rohimah tercinta.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                 <!-- 1. Foto Siti Rohimah Sendiri -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.45.jpeg" alt="Siti Rohimah" role="button" tabindex="0" aria-label="Perbesar foto Siti Rohimah" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Siti+Rohimah';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Bidadari hatiku yang senantiasa menawan</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Senyum Manis Siti Rohimah</h4>
-                        <p class="text-xs text-gray-500 mt-1">Keindahan yang selalu menenangkan jiwaku</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Senyum Manis Siti Rohimah</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Keindahan yang selalu menenangkan jiwaku</p>
                     </div>
                 </div>
 
                 <!-- 2. Foto Bersama Suami (28662.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48%20%281%29.jpeg" alt="Bersama Suami" role="button" tabindex="0" aria-label="Perbesar foto Bersama Suami" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Bersama+Suami';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Berjalan bersama dalam ikatan suci</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Satu Hati Selamanya</h4>
-                        <p class="text-xs text-gray-500 mt-1">Bergandengan tangan menghadapi dunia</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Satu Hati Selamanya</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Bergandengan tangan menghadapi dunia</p>
                     </div>
                 </div>
 
                 <!-- 3. Foto Kolase Momen (28664.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.48.jpeg" alt="Kenangan bersama" role="button" tabindex="0" aria-label="Perbesar foto Kenangan bersama" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kenangan+Kita';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Kumpulan cerita indah kita</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Merajut Kisah Cinta</h4>
-                        <p class="text-xs text-gray-500 mt-1">Setiap detik berharga bersamamu</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Merajut Kisah Cinta</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Setiap detik berharga bersamamu</p>
                     </div>
                 </div>
 
                 <!-- 4. Foto Bersama Buah Hati (28667.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.42.jpeg" alt="Keluarga Tercinta" role="button" tabindex="0" aria-label="Perbesar foto Keluarga Tercinta" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Keluarga+Kecil';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Kebahagiaan terindah dalam hidupku</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Keluarga Bahagia</h4>
-                        <p class="text-xs text-gray-500 mt-1">Pilar kekuatan dan kehangatan rumah kita</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Keluarga Bahagia</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Pilar kekuatan dan kehangatan rumah kita</p>
                     </div>
                 </div>
 
                 <!-- 5. Foto Suasana Cafe/Santai (28660.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49%20%281%29.jpeg" alt="Waktu Berkualitas" role="button" tabindex="0" aria-label="Perbesar foto Waktu Berkualitas" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Quality+Time';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Menikmati kebersamaan yang hangat</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Kehangatan Bersama</h4>
-                        <p class="text-xs text-gray-500 mt-1">Selalu menyenangkan berada di sisimu</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Kehangatan Bersama</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Selalu menyenangkan berada di sisimu</p>
                     </div>
                 </div>
 
                 <!-- 6. Foto Momen Ultah Kue (28658.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.43.49.jpeg" alt="Ulang Tahun" role="button" tabindex="0" aria-label="Perbesar foto Ulang Tahun" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Ulang+Tahun';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Merayakan hari istimewamu</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Hari Istimewa</h4>
-                        <p class="text-xs text-gray-500 mt-1">Semoga panjang umur dan berkah selalu</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Hari Istimewa</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Semoga panjang umur dan berkah selalu</p>
                     </div>
                 </div>
 
                 <!-- 7. Foto Bersama Buah Hati (28654.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53%20%282%29.jpeg" alt="Ibu dan Anak" role="button" tabindex="0" aria-label="Perbesar foto Ibu dan Anak" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Buah+Hati';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Kasih sayang ibu tiada tara</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Cinta Buah Hati</h4>
-                        <p class="text-xs text-gray-500 mt-1">Kebahagiaan keluarga tercinta</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Cinta Buah Hati</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Kebahagiaan keluarga tercinta</p>
                     </div>
                 </div>
 
                 <!-- 8. Foto Alam/Outdoor (28653.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.50.jpeg" alt="Liburan bersama keluarga" role="button" tabindex="0" aria-label="Perbesar foto Liburan bersama keluarga" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Liburan';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Menikmati indahnya alam bersama</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Petualangan Cinta</h4>
-                        <p class="text-xs text-gray-500 mt-1">Menjelajah dunia bersamamu</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Petualangan Cinta</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Menjelajah dunia bersamamu</p>
                     </div>
                 </div>
 
                 <!-- 9. Foto Bersama Di Kursi Taman (28652.jpg) -->
-                <div class="glass-card rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="h-48 sm:h-56 overflow-hidden relative bg-pink-50">
+                <div class="glass-card rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-36 sm:h-56 overflow-hidden relative bg-pink-50">
                         <img src="WhatsApp%20Image%202026-10-24%20at%2011.46.53.jpeg" alt="Keluarga berjalan bersama" role="button" tabindex="0" aria-label="Perbesar foto Keluarga berjalan bersama" loading="lazy" class="gallery-photo w-full h-full object-cover object-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-400 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x600/ffccd5/d81b60?text=Kebersamaan';">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <p class="text-white text-sm font-medium">Sehidup sesurga bersamamu</p>
                         </div>
                     </div>
-                    <div class="p-5 text-center">
-                        <h4 class="font-serif font-bold text-lg text-gray-800">Cinta Abadi</h4>
-                        <p class="text-xs text-gray-500 mt-1">Menua bersama dalam kasih sayang</p>
+                    <div class="p-3 sm:p-5 text-center">
+                        <h4 class="font-serif font-bold text-base sm:text-lg text-gray-800">Cinta Abadi</h4>
+                        <p class="text-[11px] sm:text-xs text-gray-500 mt-1">Menua bersama dalam kasih sayang</p>
                     </div>
                 </div>
             </div>
